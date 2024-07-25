@@ -6,6 +6,9 @@
 function HookKeycloakAllLoginformlink() {
     global $baseurl;
     $config = get_plugin_config('keycloak');
+    if($config === null){
+        return;
+    }
     $auth_url = $config['keycloak_server_url'] . '/realms/' . $config['keycloak_realm'] . '/' . $config['keycloak_authorization_endpoint'];
     $auth_url .= '?client_id=' . $config['keycloak_client_id'];
     $auth_url .= '&response_type=code';
