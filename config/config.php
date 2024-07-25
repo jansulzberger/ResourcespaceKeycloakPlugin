@@ -3,7 +3,7 @@
 $keycloak_client_id = 'resourcespace';
 $keycloak_client_secret = 'resourcespace';
 
-$keycloak_server = 'http://localhost:8080/realm/resourcespace/';
+$keycloak_server_url = 'http://localhost:8080/realm/resourcespace/';
 
 
 $keycloak_redirect_uri = 'protocol/openid-connect/auth';
