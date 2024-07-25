@@ -32,7 +32,7 @@ function HookKeycloakAllProvideusercredentials() {
             'client_id' => $config['keycloak_client_id'],
             'client_secret' => $config['keycloak_client_secret'],
             'code' => $code,
-            'redirect_uri' => $config['keycloak_redirect_uri']
+            'redirect_uri' => $baseurl . '/plugins/keycloak/pages/callback.php'
         ];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $token_url);
