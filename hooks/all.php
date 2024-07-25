@@ -48,7 +48,7 @@ function HookKeycloakAllProvideusercredentials() {
             foreach($jwt_payload['realm_access']['roles'] as $role){
                 switch($role){
                     case 'Administrator':
-                        $usergroup = 1;
+                        $usergroup = 3;
                         break;
                     case 'Editor':
                         $usergroup = 4;
