@@ -1,5 +1,5 @@
 name: keycloak
-title: Keycloak SSO
+title: Keycloak Authentication Plugin
 desc: "Keycloak is an open source identity and access management solution. It makes it easy to secure applications and services with little to no code."
 icon: fa fa-key
 author: Jan Sulzberger
