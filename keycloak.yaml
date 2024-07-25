@@ -3,7 +3,7 @@ title: Keycloak SSO
 desc: "Keycloak is an open source identity and access management solution. It makes it easy to secure applications and services with little to no code."
 icon: fa fa-key
 author: Jan Sulzberger
-version: 1.0
+version: 1.1
 config_url: /plugins/keycloak/pages/setup.php
 info_url: https://github.com/jansulzberger/ResourcespaceKeycloakPlugin
 category: authentication
