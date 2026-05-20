@@ -22,4 +22,5 @@ $keycloak_check_session_iframe  = "protocol/openid-connect/login-status-iframe.h
 
 $rollmapping_admin = 1;
 $rollmapping_editor = 3;
+$rollmapping_heintges = 4;
 $rollmapping_default = 2;

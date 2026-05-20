@@ -58,6 +58,10 @@ function HookKeycloakAllProvideusercredentials()
                         $usergroup = $config['rollmapping_editor'];
                         break 2;
 
+                    case 'Heintges':
+                        $usergroup = $config['rollmapping_heintges'];
+                        break 2;
+
                     default:
                         break;
                 }

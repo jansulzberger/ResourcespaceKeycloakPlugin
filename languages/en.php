@@ -23,4 +23,5 @@ $lang['rollmapping_headline'] = 'Role Mapping';
 $lang['rollmapping_description'] = 'Role Mapping Configuration';
 $lang['rollmapping_admin'] = 'Administrator';
 $lang['rollmapping_editor'] = 'Editor';
+$lang['rollmapping_heintges'] = 'Heintges';
 $lang['rollmapping_default'] = 'Default';

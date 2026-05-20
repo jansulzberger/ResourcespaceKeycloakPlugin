@@ -97,6 +97,12 @@ $page_def[] = config_add_single_select(
 );
 
 $page_def[] = config_add_single_select(
+    'rollmapping_heintges',
+    $lang['rollmapping_heintges'],
+    $options
+);
+
+$page_def[] = config_add_single_select(
     'rollmapping_default',
     $lang['rollmapping_default'],
     $options
