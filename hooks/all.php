@@ -3,10 +3,11 @@
 /**
  * Hook into login form
  */
-function HookKeycloakAllLoginformlink() {
+function HookKeycloakAllLoginformlink()
+{
     global $baseurl;
     $config = get_plugin_config('keycloak');
-    if($config === null){
+    if ($config === null) {
         return;
     }
     $auth_url = $config['keycloak_server_url'] . '/realms/' . $config['keycloak_realm'] . '/' . $config['keycloak_authorization_endpoint'];
@@ -21,7 +22,8 @@ function HookKeycloakAllLoginformlink() {
 /**
  * Hook into user login
  */
-function HookKeycloakAllProvideusercredentials() {
+function HookKeycloakAllProvideusercredentials()
+{
     global $baseurl;
     $config = get_plugin_config('keycloak');
     if (isset($_GET['code'])) {
@@ -46,44 +48,50 @@ function HookKeycloakAllProvideusercredentials() {
             $id_token = $response_data['id_token'];
             $jwt_parts = explode('.', $id_token);
             $jwt_payload = json_decode(base64_decode($jwt_parts[1]), true);
-            //Default Usergroup
-            $usergroup = 2;
-            foreach($jwt_payload['realm_access']['roles'] as $role){
-                switch($role){
+            foreach ($jwt_payload['realm_access']['roles'] as $role) {
+                switch ($role) {
                     case 'Administrator':
-                        $usergroup = 3;
-                        break;
+                        $usergroup = $config['rollmapping_admin'];
+                        break 2;
+
                     case 'Editor':
-                        $usergroup = 4;
-                        break;
-                    case 'Viewer':
-                        $usergroup = 2;
+                        $usergroup = $config['rollmapping_editor'];
+                        break 2;
+
+                    case 'Heintges':
+                        $usergroup = $config['rollmapping_heintges'];
+                        break 2;
+
+                    default:
                         break;
                 }
             }
+            if (!isset($usergroup)) {
+                $usergroup = $config['rollmapping_default'];
+            }
             $email = $jwt_payload['email'];
             $fullname = $jwt_payload['name'];
-            if(user_email_exists($email)){
+            if (user_email_exists($email)) {
                 $userref = get_user_by_email($email);
                 $user = get_user(intval($userref[0]['ref']));
                 ps_query("UPDATE user SET usergroup=? WHERE ref=?", ['i', $usergroup, 'i', $user['ref']]);
 
-            }else{
-                $user = new_user($email,$usergroup);
+            } else {
+                $user = new_user($email, $usergroup);
                 ps_query("UPDATE user SET fullname=?, email=? WHERE ref=?", ['s', $fullname, 's', $email, 'i', $user]);
                 $user = get_user($user);
             }
             $session_hash = generate_session_hash($user['password']);
-            $ip=get_ip();
+            $ip = get_ip();
             $language = getval("language", "");
-            ps_query("UPDATE user SET session=?, last_active = NOW(), login_tries = 0, lang = ? WHERE ref = ?", array("s",$session_hash,"s",$language,"i",$user['ref']));
+            ps_query("UPDATE user SET session=?, last_active = NOW(), login_tries = 0, lang = ? WHERE ref = ?", array("s", $session_hash, "s", $language, "i", $user['ref']));
             $get_user_local_timezone = getval('user_local_timezone', null);
             set_config_option($user, 'user_local_timezone', $get_user_local_timezone);
             daily_stat("User session", $user['ref']);
             //log_activity(null,LOG_CODE_LOGGED_IN,$ip,"user","last_ip",($userref!="" ? $userref :"null"),null,'',($userref!="" ? $userref :"null"));
-            ps_query("DELETE FROM ip_lockout WHERE ip = ?",array("s",$ip));
+            ps_query("DELETE FROM ip_lockout WHERE ip = ?", array("s", $ip));
             global $user_preferences;
-            set_login_cookies(intval($user['ref']),$session_hash,$language, $user_preferences);
+            set_login_cookies(intval($user['ref']), $session_hash, $language, $user_preferences);
             header('Location: ' . $baseurl . '/pages/home.php');
             exit();
         } else {
