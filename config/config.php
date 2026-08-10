@@ -19,3 +19,8 @@ $keycloak_userinfo_endpoint  = "protocol/openid-connect/userinfo";
 $keycloak_end_session_endpoint  = "protocol/openid-connect/logout";
 $keycloak_jwks_uri  = "protocol/openid-connect/certs";
 $keycloak_check_session_iframe  = "protocol/openid-connect/login-status-iframe.html";
+
+$rollmapping_admin = 1;
+$rollmapping_editor = 3;
+$rollmapping_heintges = 4;
+$rollmapping_default = 2;

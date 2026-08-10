@@ -76,6 +76,37 @@ $page_def[] = config_add_text_input(
     $lang['keycloak_logout_uri']
 );
 
+$page_def[] = config_add_section_header($lang['rollmapping_headline'],$lang['rollmapping_description']);
+$usergroups = get_usergroups();
+$options = array();
+foreach ($usergroups as $group)
+{
+    $options[$group['ref']] = $group['name'];
+}
+
+$page_def[] = config_add_single_select(
+    'rollmapping_admin',
+    $lang['rollmapping_admin'],
+    $options
+);
+
+$page_def[] = config_add_single_select(
+    'rollmapping_editor',
+    $lang['rollmapping_editor'],
+    $options
+);
+
+$page_def[] = config_add_single_select(
+    'rollmapping_heintges',
+    $lang['rollmapping_heintges'],
+    $options
+);
+
+$page_def[] = config_add_single_select(
+    'rollmapping_default',
+    $lang['rollmapping_default'],
+    $options
+);
 
 // Do the page generation ritual -- don't change this section.
 config_gen_setup_post($page_def, $plugin_name);
